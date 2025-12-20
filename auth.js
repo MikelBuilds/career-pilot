@@ -1,4 +1,5 @@
 import NextAuth from "next-auth";
+import GitHub from "next-auth/providers/github";
 
 export const {
   handlers,
@@ -6,5 +7,10 @@ export const {
   signOut,
   auth,
 } = NextAuth({
-  providers: [],
+  providers: [
+    GitHub({
+      clientId: process.env.AUTH_GITHUB_ID,
+      clientSecret: process.env.AUTH_GITHUB_SECRET,
+    }),
+  ],
 });
