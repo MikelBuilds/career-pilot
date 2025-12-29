@@ -1,8 +1,8 @@
 import { Geist, Geist_Mono } from 'next/font/google'
 // import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
-import Header from '@/components/ui/header.jsx'
-import Footer from '@/components/ui/footer.jsx'
+import Header from '@/components/header.jsx'
+import Footer from '@/components/footer.jsx'
 import { ClerkProvider } from '@clerk/nextjs'
 
 
