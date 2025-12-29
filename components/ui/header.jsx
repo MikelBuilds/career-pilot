@@ -9,6 +9,7 @@ import {
   UserButton,
 } from '@clerk/nextjs'
 import { LayoutDashboard, PenBox } from 'lucide-react'
+import Image from 'next/image'
 
 const Header = () => {
   return (
@@ -16,11 +17,19 @@ const Header = () => {
       <div className="container mx-auto flex items-center justify-between h-full">
         {/* Logo */}
         <Link href="/" className="text-2xl font-bold text-slate-900 tracking-tight">
-          CareerPilot
+        <Image 
+          src="/logo.png"
+          alt="CareerPilot"
+          width={140}
+          height={32}
+          priority
+          className="h-15 w-auto"
+        />
+          
         </Link>
 
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <SignedIn>
             <Link href="/dashboard">
                 <Button variant="outline" className="hidden md:flex">
@@ -28,12 +37,7 @@ const Header = () => {
                   Dashboard
                 </Button>
             </Link>
-             <Link href="/create">
-                <Button className="hidden md:flex bg-indigo-600 hover:bg-indigo-700 text-white">
-                  <PenBox className="h-4 w-4" />
-                  Create
-                </Button>
-            </Link>
+
             <UserButton 
               appearance={{
                 elements: {
@@ -44,10 +48,10 @@ const Header = () => {
           </SignedIn>
 
           <SignedOut>
-            <SignInButton>
+            <SignInButton mode="modal">
                <Button variant="outline">Sign In</Button>
             </SignInButton>
-            <SignUpButton>
+            <SignUpButton mode="modal">
               <Button className="bg-indigo-600 hover:bg-indigo-700 text-white">
                 Sign Up
               </Button>
