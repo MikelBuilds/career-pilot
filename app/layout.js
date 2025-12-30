@@ -4,6 +4,7 @@ import './globals.css'
 import Header from '@/components/header.jsx'
 import Footer from '@/components/footer.jsx'
 import { ClerkProvider } from '@clerk/nextjs'
+import { checkUser } from '@/lib/checkUser'
 
 
 export const metadata = {
@@ -11,12 +12,14 @@ export const metadata = {
   description: 'Your AI-Powered Career Companion',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  await checkUser();
+
   return (
     <ClerkProvider>
       <html lang="en">
         {/*`${geistSans.variable} ${geistMono.variable} antialiased`} */}
-        <body className>
+        <body>
           {/* <ThemeProvider
             attribute="class"
             defaultTheme="system"
