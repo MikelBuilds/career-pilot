@@ -5,6 +5,7 @@ import Header from '@/components/header.jsx'
 import Footer from '@/components/footer.jsx'
 import { ClerkProvider } from '@clerk/nextjs'
 import { checkUser } from '@/lib/checkUser'
+import { ThemeProvider } from '@/components/ui/theme-provider'
 
 
 export const metadata = {
@@ -17,20 +18,20 @@ export default async function RootLayout({ children }) {
 
   return (
     <ClerkProvider>
-      <html lang="en">
-        {/*`${geistSans.variable} ${geistMono.variable} antialiased`} */}
+      <html lang="en" suppressHydrationWarning>
         <body>
-          {/* <ThemeProvider
+          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
-          > */}
+            disableTransitionOnChange
+          >
             <Header />
             <main className="min-h-screen pt-16">
               {children}
             </main>
             <Footer />
-          {/* </ThemeProvider> */}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

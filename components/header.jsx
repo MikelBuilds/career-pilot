@@ -18,14 +18,15 @@ const Header = () => {
         
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <Image
+          {/* <Image
             src="/logo.png"
             alt="CareerPilot Logo"
             width={150}
             height={40}
             className="h-10 w-auto object-contain"
             priority
-          />
+          /> */}
+          <b><h1>CareerPilot</h1></b>
         </Link>
 
         {/* Desktop Navigation - The "Sell" */}
