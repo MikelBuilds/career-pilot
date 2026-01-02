@@ -52,12 +52,12 @@ const Header = () => {
                 <span>Dashboard</span>
               </Button>
             </Link>
-            <Link href="/resume">
+            {/* <Link href="/resume">
              <Button variant="ghost" className="hidden md:flex items-center gap-2">
                 <FileText className="h-4 w-4" />
                 <span>Build Resume</span>
               </Button>
-            </Link>
+            </Link> */}
 
             <UserButton
               appearance={{
