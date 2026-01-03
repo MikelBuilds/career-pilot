@@ -6,6 +6,7 @@ import Footer from '@/components/footer.jsx'
 import { ClerkProvider } from '@clerk/nextjs'
 import { checkUser } from '@/lib/checkUser'
 import { ThemeProvider } from '@/components/ui/theme-provider'
+import { Toaster } from 'sonner'
 
 
 export const metadata = {
@@ -30,6 +31,7 @@ export default async function RootLayout({ children }) {
             <main className="min-h-screen pt-16">
               {children}
             </main>
+            <Toaster richColors />
             <Footer />
           </ThemeProvider>
         </body>

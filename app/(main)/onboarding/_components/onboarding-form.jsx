@@ -51,20 +51,21 @@ const OnboardingForm = ({ industries }) => {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
+    // console.log(values);
     
-    // try {
-    //   const formattedIndustry = `${values.industry}-${values.subIndustry
-    //     .toLowerCase()
-    //     .replace(/ /g, "-")}`;
+    try {
+      const formattedIndustry = `${values.industry}-${values.subIndustry
+        .toLowerCase()
+        .replace(/ /g, "-")}`;
 
-    //   await updateUserFn({
-    //     ...values,
-    //     industry: formattedIndustry,
-    //   });
-    // } catch (error) {
-    //   console.error("Onboarding error:", error);
-    // }
+      await updateUserFn({
+        ...values,
+        industry: formattedIndustry,
+      });
+    } catch (error) {
+      console.error("Onboarding error:", error);
+      toast.error("Failed to submit profile. Please try again.");
+    }
   };
 
   useEffect(() => {

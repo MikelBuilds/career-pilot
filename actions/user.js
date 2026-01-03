@@ -3,7 +3,7 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-// import { generateAIInsights } from "./dashboard";
+import { generateAIInsights } from "./dashboard";
 
 export async function updateUser(data) {
   const { userId } = await auth();
@@ -16,25 +16,40 @@ export async function updateUser(data) {
   if (!user) throw new Error("User not found");
 
   try {
+    // Check if industry exists first to avoid unnecessary AI calls
+    let industryInsight = await db.industryInsight.findUnique({
+      where: {
+        industry: data.industry,
+      },
+    });
+
+    // If industry doesn't exist, generate insights outside transaction
+    let insights;
+    if (!industryInsight) {
+      insights = await generateAIInsights(data.industry);
+    }
+
     // Start a transaction to handle both operations
     const result = await db.$transaction(
       async (tx) => {
-        // First check if industry exists
-        let industryInsight = await tx.industryInsight.findUnique({
-          where: {
-            industry: data.industry,
-          },
-        });
-
-        // If industry doesn't exist, create it with default values
-        if (!industryInsight) {
-          const insights = await generateAIInsights(data.industry);
-
-          industryInsight = await db.industryInsight.create({
-            data: {
+        // If we generated insights, ensure they are saved
+        if (insights) {
+          industryInsight = await tx.industryInsight.upsert({
+            where: {
+              industry: data.industry,
+            },
+            update: {}, // If it exists (race condition), do nothing
+            create: {
               industry: data.industry,
               ...insights,
               nextUpdate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+            },
+          });
+        } else {
+          // If we didn't generate insights, fetch the existing one to return it
+          industryInsight = await tx.industryInsight.findUnique({
+            where: {
+              industry: data.industry,
             },
           });
         }
@@ -63,7 +78,7 @@ export async function updateUser(data) {
     return result.user;
   } catch (error) {
     console.error("Error updating user and industry:", error.message);
-    throw new Error("Failed to update profile");
+    throw new Error("Failed to update profile: " + error.message);
   }
 }
 
