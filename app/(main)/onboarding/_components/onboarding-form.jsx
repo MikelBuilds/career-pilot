@@ -51,18 +51,20 @@ const OnboardingForm = ({ industries }) => {
   });
 
   const onSubmit = async (values) => {
-    try {
-      const formattedIndustry = `${values.industry}-${values.subIndustry
-        .toLowerCase()
-        .replace(/ /g, "-")}`;
+    console.log(values);
+    
+    // try {
+    //   const formattedIndustry = `${values.industry}-${values.subIndustry
+    //     .toLowerCase()
+    //     .replace(/ /g, "-")}`;
 
-      await updateUserFn({
-        ...values,
-        industry: formattedIndustry,
-      });
-    } catch (error) {
-      console.error("Onboarding error:", error);
-    }
+    //   await updateUserFn({
+    //     ...values,
+    //     industry: formattedIndustry,
+    //   });
+    // } catch (error) {
+    //   console.error("Onboarding error:", error);
+    // }
   };
 
   useEffect(() => {
