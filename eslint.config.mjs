@@ -19,7 +19,13 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
+    rules: {
+      "tailwindcss/classnames-order": "off",
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/enforces-shorthand": "off",
+    },
   },
+  
 ];
 
 export default eslintConfig;
