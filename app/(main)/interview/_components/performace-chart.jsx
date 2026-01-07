@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
+import { TrendingUp, BarChart3 } from "lucide-react";
 
 export default function PerformanceChart({ assessments }) {
   const [chartData, setChartData] = useState([]);
@@ -33,21 +34,24 @@ export default function PerformanceChart({ assessments }) {
   }, [assessments]);
 
   return (
-    <Card className="relative overflow-hidden border-2 shadow-lg">
-      <div className="absolute -inset-2 bg-gradient-to-br from-blue-500 via-purple-500 to-green-500 opacity-5 blur-2xl" />
-      <CardHeader className="relative space-y-2">
-        <CardTitle className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+    <Card className="border-2">
+      <CardHeader>
+        <CardTitle className="text-xl font-semibold flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-blue-600 dark:text-blue-400" />
           Performance Trend
         </CardTitle>
-        <CardDescription className="text-base">Your quiz scores over time</CardDescription>
+        <CardDescription>Track your quiz scores over time</CardDescription>
       </CardHeader>
-      <CardContent className="relative">
+      <CardContent>
         {chartData.length === 0 ? (
-          <div className="h-[300px] flex items-center justify-center">
-            <div className="text-center space-y-2">
-              <p className="text-muted-foreground">No quiz data yet</p>
-              <p className="text-sm text-muted-foreground">Complete a quiz to see your performance trend</p>
+          <div className="empty-state py-12">
+            <div className="empty-state-icon">
+              <BarChart3 className="h-8 w-8" />
             </div>
+            <h3 className="empty-state-title">No performance data yet</h3>
+            <p className="empty-state-description">
+              Complete a quiz to see your performance trend over time
+            </p>
           </div>
         ) : (
           <div className="h-[300px]">
@@ -55,38 +59,31 @@ export default function PerformanceChart({ assessments }) {
               <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
                 <defs>
                   <linearGradient id="colorScore" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stopColor="#2563eb" />
-                    <stop offset="50%" stopColor="#9333ea" />
-                    <stop offset="100%" stopColor="#16a34a" />
-                  </linearGradient>
-                  <linearGradient id="colorScoreArea" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#2563eb" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#9333ea" stopOpacity={0.05} />
+                    <stop offset="0%" stopColor="hsl(var(--primary))" />
+                    <stop offset="100%" stopColor="hsl(var(--chart-5))" />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" opacity={0.3} stroke="hsl(var(--border))" />
+                <CartesianGrid strokeDasharray="3 3" className="stroke-border" opacity={0.5} />
                 <XAxis 
                   dataKey="date" 
-                  stroke="#ffffff"
-                  tick={{ fill: '#ffffff' }}
-                  style={{ fontSize: '14px', fontWeight: 500 }}
+                  className="text-xs"
+                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
                 />
                 <YAxis 
                   domain={[0, 100]} 
-                  stroke="#ffffff"
-                  tick={{ fill: '#ffffff' }}
-                  style={{ fontSize: '14px', fontWeight: 500 }}
+                  className="text-xs"
+                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
                   tickFormatter={(value) => `${value}%`}
                 />
                 <Tooltip
                   content={({ active, payload }) => {
                     if (active && payload?.length) {
                       return (
-                        <div className="bg-background border-2 border-purple-500 rounded-lg p-3 shadow-xl">
-                          <p className="text-base font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-                            {payload[0].value}%
+                        <div className="bg-background border rounded-lg p-3 shadow-lg">
+                          <p className="text-lg font-bold gradient-title">
+                            {payload[0].value.toFixed(1)}%
                           </p>
-                          <p className="text-sm text-muted-foreground">
+                          <p className="text-xs text-muted-foreground">
                             {payload[0].payload.date}
                           </p>
                         </div>
@@ -99,17 +96,17 @@ export default function PerformanceChart({ assessments }) {
                   type="monotone"
                   dataKey="score"
                   stroke="url(#colorScore)"
-                  strokeWidth={3}
+                  strokeWidth={2.5}
                   dot={{ 
-                    fill: "#9333ea", 
+                    fill: "hsl(var(--primary))", 
                     strokeWidth: 2, 
-                    r: 5,
-                    stroke: "#fff"
+                    r: 4,
+                    stroke: "hsl(var(--background))"
                   }}
                   activeDot={{ 
-                    r: 7, 
-                    fill: "#9333ea",
-                    stroke: "#fff",
+                    r: 6, 
+                    fill: "hsl(var(--primary))",
+                    stroke: "hsl(var(--background))",
                     strokeWidth: 2
                   }}
                 />

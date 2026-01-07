@@ -11,137 +11,131 @@ import {
   TrendingUp,
   Zap,
   Award,
-  Users
+  Users,
+  FileText,
+  GraduationCap,
+  Rocket
 } from "lucide-react";
 
 export default function Hero() {
   return (
-    <section className="relative w-full overflow-hidden bg-background pt-20 pb-16 md:pt-28 lg:pb-24">
+    <section className="relative w-full overflow-hidden bg-background">
       
-      {/* Enhanced Background with Multiple Layers */}
+      {/* Subtle Background Pattern */}
       <div className="absolute inset-0 z-[-1]">
-        <div className="absolute top-0 h-screen w-screen bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.15),rgba(255,255,255,0))]" />
-        <div className="absolute top-1/4 right-0 h-96 w-96 bg-[radial-gradient(circle,rgba(139,92,246,0.1),transparent_70%)]" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 bg-[radial-gradient(circle,rgba(34,197,94,0.08),transparent_70%)]" />
+        <div className="absolute top-0 h-full w-full bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(99,102,241,0.12),rgba(255,255,255,0))]" />
+        <div className="absolute top-1/3 right-0 h-96 w-96 bg-[radial-gradient(circle,rgba(99,102,241,0.08),transparent_60%)]" />
+        <div className="absolute bottom-1/4 left-0 h-72 w-72 bg-[radial-gradient(circle,rgba(139,92,246,0.06),transparent_60%)]" />
       </div>
       
-      <div className="mx-auto max-w-7xl px-6 text-center">
-        
-        {/* Animated Badge */}
-        <div className="mb-8 flex justify-center animate-in fade-in slide-in-from-top-4 duration-1000">
-          <div className="group relative">
-            <div className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 opacity-20 blur group-hover:opacity-40 transition-opacity" />
-            <span className="relative inline-flex items-center gap-2 rounded-full border border-blue-200 dark:border-blue-800 bg-background/80 px-5 py-2 text-sm font-medium shadow-sm backdrop-blur-md">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-75"></span>
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500"></span>
-              </span>
-              <Sparkles className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-              AI-Powered Career Guidance for Engineers
+      <div className="mx-auto max-w-7xl px-6 py-20 md:py-28 lg:py-32">
+        <div className="text-center">
+          
+          {/* Badge */}
+          <div className="mb-8 inline-flex items-center gap-2 rounded-full border bg-background/80 px-4 py-2 text-sm font-medium shadow-sm backdrop-blur-sm">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span>
             </span>
+            <Sparkles className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-muted-foreground">AI-Powered Career Platform</span>
           </div>
-        </div>
 
-        {/* Main Headline with Staggered Animation */}
-        <h1 className="mx-auto max-w-5xl animate-in fade-in slide-in-from-top-6 duration-1000 delay-150">
-          <span className="block text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.1]">
-            Navigate Your Career
-          </span>
-          <span className="block mt-3 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent animate-gradient">
+          {/* Main Headline */}
+          <h1 className="mx-auto max-w-4xl">
+            <span className="block text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-7xl">
+              Navigate Your Career
+            </span>
+            <span className="block mt-2 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl gradient-title">
               With Confidence
             </span>
-          </span>
-        </h1>
+          </h1>
 
-        {/* Enhanced Subtext */}
-        <p className="mx-auto mt-8 max-w-2xl text-lg md:text-xl text-muted-foreground leading-relaxed animate-in fade-in slide-in-from-top-8 duration-1000 delay-300">
-          From <span className="font-semibold text-foreground">resume building</span> to{" "}
-          <span className="font-semibold text-foreground">interview prep</span>, CareerPilot provides 
-          AI-driven insights tailored to your industry and experience level.
-        </p>
+          {/* Subtext */}
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
+            From <span className="font-semibold text-foreground">resume building</span> to{" "}
+            <span className="font-semibold text-foreground">interview prep</span>, get 
+            AI-driven insights tailored to your industry and experience level.
+          </p>
 
-        {/* CTA Buttons with Enhanced Styling */}
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row animate-in fade-in slide-in-from-top-10 duration-1000 delay-500">
-          <Link href="/dashboard">
-            <Button 
-              size="lg" 
-              className="group h-14 px-10 text-base font-semibold shadow-xl shadow-blue-500/25 transition-all hover:shadow-2xl hover:shadow-blue-500/40 hover:scale-105"
-            >
-              Start Your Journey
-              <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Button>
-          </Link>
+          {/* CTA Buttons */}
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link href="/dashboard">
+              <Button 
+                size="lg" 
+                className="h-12 px-8 text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all"
+              >
+                <Rocket className="mr-2 h-5 w-5" />
+                Get Started Free
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
 
-          <Link href="#features">
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="h-14 px-10 text-base font-semibold border-2 hover:bg-muted/50 hover:scale-105 transition-all"
-            >
-              <Zap className="mr-2 h-5 w-5" />
-              See How It Works
-            </Button>
-          </Link>
-        </div>
-
-        {/* Enhanced Trust Indicators */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 md:gap-8 text-sm animate-in fade-in duration-1000 delay-700">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50 dark:bg-blue-950/30">
-            <CheckCircle2 className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-            <span className="font-medium text-blue-900 dark:text-blue-100">AI-Powered</span>
+            <Link href="#features">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="h-12 px-8 text-base font-semibold border-2"
+              >
+                <Zap className="mr-2 h-5 w-5" />
+                See How It Works
+              </Button>
+            </Link>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 dark:bg-purple-950/30">
-            <Target className="h-4 w-4 text-purple-600 dark:text-purple-400" />
-            <span className="font-medium text-purple-900 dark:text-purple-100">Industry Focused</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 dark:bg-green-950/30">
-            <TrendingUp className="h-4 w-4 text-green-600 dark:text-green-400" />
-            <span className="font-medium text-green-900 dark:text-green-100">Career Growth</span>
-          </div>
-        </div>
 
-        {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-4xl mx-auto animate-in fade-in duration-1000 delay-1000">
-          <div className="group relative p-6 rounded-2xl border bg-gradient-to-br from-blue-50 to-background dark:from-blue-950/20 dark:to-background hover:shadow-lg transition-all">
-            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 opacity-0 group-hover:opacity-20 blur transition-opacity" />
-            <div className="relative">
-              <Award className="h-8 w-8 mx-auto text-blue-600 dark:text-blue-400 mb-3" />
-              <div className="text-3xl font-bold gradient-title mb-1">AI-Driven</div>
-              <p className="text-sm text-muted-foreground">Personalized insights</p>
+          {/* Trust Indicators */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            <div className="badge-primary">
+              <CheckCircle2 className="h-4 w-4" />
+              <span>AI-Powered</span>
             </div>
-          </div>
-          
-          <div className="group relative p-6 rounded-2xl border bg-gradient-to-br from-purple-50 to-background dark:from-purple-950/20 dark:to-background hover:shadow-lg transition-all">
-            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br from-purple-500 to-green-500 opacity-0 group-hover:opacity-20 blur transition-opacity" />
-            <div className="relative">
-              <Target className="h-8 w-8 mx-auto text-purple-600 dark:text-purple-400 mb-3" />
-              <div className="text-3xl font-bold gradient-title mb-1">15+ Industries</div>
-              <p className="text-sm text-muted-foreground">Specialized guidance</p>
+            <div className="badge-info">
+              <Target className="h-4 w-4" />
+              <span>Industry Focused</span>
             </div>
-          </div>
-          
-          <div className="group relative p-6 rounded-2xl border bg-gradient-to-br from-green-50 to-background dark:from-green-950/20 dark:to-background hover:shadow-lg transition-all">
-            <div className="absolute -inset-0.5 rounded-2xl bg-gradient-to-br from-green-500 to-blue-500 opacity-0 group-hover:opacity-20 blur transition-opacity" />
-            <div className="relative">
-              <Users className="h-8 w-8 mx-auto text-green-600 dark:text-green-400 mb-3" />
-              <div className="text-3xl font-bold gradient-title mb-1">100%</div>
-              <p className="text-sm text-muted-foreground">Success focused</p>
+            <div className="badge-success">
+              <TrendingUp className="h-4 w-4" />
+              <span>Career Growth</span>
             </div>
           </div>
         </div>
 
-        {/* Banner with Enhanced Glow Effect */}
-        <div className="relative mt-20 animate-in fade-in duration-1000 delay-1000">
-          {/* Multi-layer Glow */}
-          <div className="absolute -inset-2 rounded-3xl bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 opacity-20 blur-3xl" />
-          <div className="absolute -inset-1 rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 opacity-10 blur-2xl animate-pulse" />
+        {/* Features Grid */}
+        <div className="mt-20 grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-4xl mx-auto">
+          <div className="card-professional text-center group">
+            <div className="card-feature-icon mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <FileText className="h-6 w-6" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Smart Resume Builder</h3>
+            <p className="text-sm text-muted-foreground">Create professional resumes with AI-powered suggestions</p>
+          </div>
           
-          <div className="relative rounded-2xl border-2 border-blue-100 dark:border-blue-900/50 bg-background/60 p-3 shadow-2xl backdrop-blur-sm lg:rounded-3xl lg:p-4 hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
-            <div className="overflow-hidden rounded-xl lg:rounded-2xl ring-1 ring-black/5">
+          <div className="card-professional text-center group">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-violet-100 to-purple-100 dark:from-violet-950/50 dark:to-purple-950/50 text-violet-600 dark:text-violet-400 mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <Sparkles className="h-6 w-6" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">AI Cover Letters</h3>
+            <p className="text-sm text-muted-foreground">Generate tailored cover letters in seconds</p>
+          </div>
+          
+          <div className="card-professional text-center group">
+            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-950/50 dark:to-teal-950/50 text-emerald-600 dark:text-emerald-400 mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <GraduationCap className="h-6 w-6" />
+            </div>
+            <h3 className="font-semibold text-lg mb-2">Interview Practice</h3>
+            <p className="text-sm text-muted-foreground">Practice with AI-generated mock interviews</p>
+          </div>
+        </div>
+
+        {/* Banner Image */}
+        <div className="relative mt-20">
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-r from-blue-500/10 via-violet-500/10 to-purple-500/10 blur-2xl" />
+          
+          <div className="relative rounded-2xl border-2 bg-background/50 p-2 shadow-2xl backdrop-blur-sm sm:p-3 lg:rounded-3xl">
+            <div className="overflow-hidden rounded-xl lg:rounded-2xl ring-1 ring-border">
               <Image
                 src="/banner.png"
-                alt="Career guidance dashboard preview showcasing AI-powered insights and career planning tools"
+                alt="CareerPilot Dashboard - AI-powered career insights and tools"
                 width={1400}
                 height={800}
                 className="h-auto w-full object-cover"

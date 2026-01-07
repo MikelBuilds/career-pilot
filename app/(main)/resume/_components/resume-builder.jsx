@@ -10,6 +10,12 @@ import {
   Loader2,
   Monitor,
   Save,
+  FileText,
+  User,
+  Briefcase,
+  GraduationCap,
+  FolderKanban,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 import MDEditor from "@uiw/react-md-editor";
@@ -206,226 +212,281 @@ export default function ResumeBuilder({ initialContent }) {
   };
 
   return (
-    <div data-color-mode="light" className="space-y-4">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-2">
-        <h1 className="font-bold gradient-title text-5xl md:text-6xl">
-          Resume Builder
-        </h1>
-        <div className="space-x-2">
-          <Button
-            variant="destructive"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSaving}
-          >
-            {isSaving ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Saving...
-              </>
-            ) : (
-              <>
-                <Save className="h-4 w-4" />
-                Save
-              </>
-            )}
-          </Button>
-          <Button onClick={generatePDF} disabled={isGenerating}>
-            {isGenerating ? (
-              <>
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Generating PDF...
-              </>
-            ) : (
-              <>
-                <Download className="h-4 w-4" />
-                Download PDF
-              </>
-            )}
-          </Button>
+    <div data-color-mode="light" className="space-y-8">
+      {/* Page Header */}
+      <div className="page-header">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-950/50 dark:to-indigo-950/50">
+                <FileText className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+              </div>
+              <h1 className="page-title">Resume Builder</h1>
+            </div>
+            <p className="page-description">
+              Create a professional resume with our easy-to-use builder. Add your details and export to PDF.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={handleSubmit(onSubmit)}
+              disabled={isSaving}
+              className="gap-2 border-2 hover:border-blue-300 dark:hover:border-blue-700"
+            >
+              {isSaving ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                <>
+                  <Save className="h-4 w-4" />
+                  Save Resume
+                </>
+              )}
+            </Button>
+            <Button 
+              size="lg"
+              onClick={generatePDF} 
+              disabled={isGenerating}
+              className="gap-2 shadow-lg shadow-blue-500/20 hover:shadow-xl hover:shadow-blue-500/30 transition-all"
+            >
+              {isGenerating ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4" />
+                  Download PDF
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
-          <TabsTrigger value="edit">Form</TabsTrigger>
-          <TabsTrigger value="preview">Markdown</TabsTrigger>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid w-full max-w-md grid-cols-2 p-1">
+          <TabsTrigger value="edit" className="gap-2">
+            <Edit className="h-4 w-4" />
+            Form Editor
+          </TabsTrigger>
+          <TabsTrigger value="preview" className="gap-2">
+            <Monitor className="h-4 w-4" />
+            Markdown View
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="edit">
+        <TabsContent value="edit" className="space-y-0">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
             {/* Contact Information */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Contact Information</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg bg-muted/50">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Email</label>
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <User className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  Contact Information
+                </h3>
+                <p className="section-description">Add your personal and contact details</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div className="form-group">
+                  <label className="form-label">Email Address</label>
                   <Input
                     {...register("contactInfo.email")}
                     type="email"
                     placeholder="your@email.com"
-                    error={errors.contactInfo?.email}
+                    className="h-11"
                   />
                   {errors.contactInfo?.email && (
-                    <p className="text-sm text-red-500">
-                      {errors.contactInfo.email.message}
-                    </p>
+                    <p className="form-error">{errors.contactInfo.email.message}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Mobile Number</label>
+                <div className="form-group">
+                  <label className="form-label">Phone Number</label>
                   <Input
                     {...register("contactInfo.mobile")}
                     type="tel"
                     placeholder="+1 234 567 8900"
+                    className="h-11"
                   />
                   {errors.contactInfo?.mobile && (
-                    <p className="text-sm text-red-500">
-                      {errors.contactInfo.mobile.message}
-                    </p>
+                    <p className="form-error">{errors.contactInfo.mobile.message}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">LinkedIn URL</label>
+                <div className="form-group">
+                  <label className="form-label">LinkedIn Profile</label>
                   <Input
                     {...register("contactInfo.linkedin")}
                     type="url"
                     placeholder="https://linkedin.com/in/your-profile"
+                    className="h-11"
                   />
                   {errors.contactInfo?.linkedin && (
-                    <p className="text-sm text-red-500">
-                      {errors.contactInfo.linkedin.message}
-                    </p>
+                    <p className="form-error">{errors.contactInfo.linkedin.message}</p>
                   )}
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">
-                    Twitter/X Profile
-                  </label>
+                <div className="form-group">
+                  <label className="form-label">Twitter / X Profile</label>
                   <Input
                     {...register("contactInfo.twitter")}
                     type="url"
                     placeholder="https://twitter.com/your-handle"
+                    className="h-11"
                   />
                   {errors.contactInfo?.twitter && (
-                    <p className="text-sm text-red-500">
-                      {errors.contactInfo.twitter.message}
-                    </p>
+                    <p className="form-error">{errors.contactInfo.twitter.message}</p>
                   )}
                 </div>
               </div>
             </div>
 
-            {/* Summary */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Professional Summary</h3>
-              <Controller
-                name="summary"
-                control={control}
-                render={({ field }) => (
-                  <Textarea
-                    {...field}
-                    className="h-32"
-                    placeholder="Write a compelling professional summary..."
-                    error={errors.summary}
-                  />
+            {/* Professional Summary */}
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <Sparkles className="h-5 w-5 text-violet-600 dark:text-violet-400" />
+                  Professional Summary
+                </h3>
+                <p className="section-description">Write a compelling overview of your career</p>
+              </div>
+              <div className="mt-6">
+                <Controller
+                  name="summary"
+                  control={control}
+                  render={({ field }) => (
+                    <Textarea
+                      {...field}
+                      className="min-h-32 resize-y"
+                      placeholder="Write a compelling professional summary that highlights your key achievements and career goals..."
+                    />
+                  )}
+                />
+                {errors.summary && (
+                  <p className="form-error mt-2">{errors.summary.message}</p>
                 )}
-              />
-              {errors.summary && (
-                <p className="text-sm text-red-500">{errors.summary.message}</p>
-              )}
+              </div>
             </div>
 
             {/* Skills */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Skills</h3>
-              <Controller
-                name="skills"
-                control={control}
-                render={({ field }) => (
-                  <Textarea
-                    {...field}
-                    className="h-32"
-                    placeholder="List your key skills..."
-                    error={errors.skills}
-                  />
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <Sparkles className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+                  Skills & Expertise
+                </h3>
+                <p className="section-description">List your technical and soft skills</p>
+              </div>
+              <div className="mt-6">
+                <Controller
+                  name="skills"
+                  control={control}
+                  render={({ field }) => (
+                    <Textarea
+                      {...field}
+                      className="min-h-32 resize-y"
+                      placeholder="List your key skills (e.g., JavaScript, React, Node.js, Project Management, Team Leadership...)"
+                    />
+                  )}
+                />
+                {errors.skills && (
+                  <p className="form-error mt-2">{errors.skills.message}</p>
                 )}
-              />
-              {errors.skills && (
-                <p className="text-sm text-red-500">{errors.skills.message}</p>
-              )}
+              </div>
             </div>
 
             {/* Experience */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Work Experience</h3>
-              <Controller
-                name="experience"
-                control={control}
-                render={({ field }) => (
-                  <EntryForm
-                    type="Experience"
-                    entries={field.value}
-                    onChange={field.onChange}
-                  />
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <Briefcase className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  Work Experience
+                </h3>
+                <p className="section-description">Add your professional work history</p>
+              </div>
+              <div className="mt-6">
+                <Controller
+                  name="experience"
+                  control={control}
+                  render={({ field }) => (
+                    <EntryForm
+                      type="Experience"
+                      entries={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.experience && (
+                  <p className="form-error mt-2">{errors.experience.message}</p>
                 )}
-              />
-              {errors.experience && (
-                <p className="text-sm text-red-500">
-                  {errors.experience.message}
-                </p>
-              )}
+              </div>
             </div>
 
             {/* Education */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Education</h3>
-              <Controller
-                name="education"
-                control={control}
-                render={({ field }) => (
-                  <EntryForm
-                    type="Education"
-                    entries={field.value}
-                    onChange={field.onChange}
-                  />
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <GraduationCap className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                  Education
+                </h3>
+                <p className="section-description">Add your educational background</p>
+              </div>
+              <div className="mt-6">
+                <Controller
+                  name="education"
+                  control={control}
+                  render={({ field }) => (
+                    <EntryForm
+                      type="Education"
+                      entries={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.education && (
+                  <p className="form-error mt-2">{errors.education.message}</p>
                 )}
-              />
-              {errors.education && (
-                <p className="text-sm text-red-500">
-                  {errors.education.message}
-                </p>
-              )}
+              </div>
             </div>
 
             {/* Projects */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-medium">Projects</h3>
-              <Controller
-                name="projects"
-                control={control}
-                render={({ field }) => (
-                  <EntryForm
-                    type="Project"
-                    entries={field.value}
-                    onChange={field.onChange}
-                  />
+            <div className="card-professional">
+              <div className="section-header">
+                <h3 className="section-title">
+                  <FolderKanban className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                  Projects
+                </h3>
+                <p className="section-description">Showcase your notable projects</p>
+              </div>
+              <div className="mt-6">
+                <Controller
+                  name="projects"
+                  control={control}
+                  render={({ field }) => (
+                    <EntryForm
+                      type="Project"
+                      entries={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+                {errors.projects && (
+                  <p className="form-error mt-2">{errors.projects.message}</p>
                 )}
-              />
-              {errors.projects && (
-                <p className="text-sm text-red-500">
-                  {errors.projects.message}
-                </p>
-              )}
+              </div>
             </div>
           </form>
         </TabsContent>
 
-        <TabsContent value="preview">
-          {activeTab === "preview" && (
+        <TabsContent value="preview" className="space-y-4">
+          <div className="flex items-center justify-between">
             <Button
-              variant="link"
+              variant="outline"
               type="button"
-              className="mb-2"
+              className="gap-2"
               onClick={() =>
                 setResumeMode(resumeMode === "preview" ? "edit" : "preview")
               }
@@ -433,7 +494,7 @@ export default function ResumeBuilder({ initialContent }) {
               {resumeMode === "preview" ? (
                 <>
                   <Edit className="h-4 w-4" />
-                  Edit Resume
+                  Edit Markdown
                 </>
               ) : (
                 <>
@@ -442,21 +503,22 @@ export default function ResumeBuilder({ initialContent }) {
                 </>
               )}
             </Button>
-          )}
+          </div>
 
-          {activeTab === "preview" && resumeMode !== "preview" && (
-            <div className="flex p-3 gap-2 items-center border-2 border-yellow-600 text-yellow-600 rounded mb-2">
-              <AlertTriangle className="h-5 w-5" />
-              <span className="text-sm">
-                You will lose editied markdown if you update the form data.
+          {resumeMode !== "preview" && (
+            <div className="flex p-4 gap-3 items-center rounded-lg border-2 border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
+              <AlertTriangle className="h-5 w-5 flex-shrink-0" />
+              <span className="text-sm font-medium">
+                Changes made here will be overwritten if you update the form data.
               </span>
             </div>
           )}
-          <div className="border rounded-lg">
+          
+          <div className="rounded-xl border-2 overflow-hidden">
             <MDEditor
               value={previewContent ?? ""}
               onChange={setPreviewContent}
-              height={800}
+              height={700}
               preview={resumeMode}
             />
           </div>

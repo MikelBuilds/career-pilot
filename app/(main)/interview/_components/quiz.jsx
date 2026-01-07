@@ -100,9 +100,9 @@ export default function Quiz() {
   if (!quizData) {
     return (
       <Card className="mx-2 relative overflow-hidden border-2 shadow-lg">
-        <div className="absolute -inset-2 bg-gradient-to-br from-blue-500 via-purple-500 to-green-500 opacity-5 blur-2xl" />
+        <div className="absolute -inset-2 bg-gradient-to-br from-indigo-500 via-violet-500 to-purple-500 opacity-5 blur-2xl" />
         <CardHeader className="relative space-y-2">
-          <CardTitle className="text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+          <CardTitle className="text-3xl font-bold gradient-title">
             Ready to test your knowledge?
           </CardTitle>
         </CardHeader>
@@ -113,25 +113,25 @@ export default function Quiz() {
               skills. Take your time and choose the best answer for each question.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800">
-                <div className="h-10 w-10 rounded-full bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white font-bold">10</div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-800">
+                <div className="h-10 w-10 rounded-full bg-indigo-600 dark:bg-indigo-500 flex items-center justify-center text-white font-bold">10</div>
                 <div>
-                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Questions</p>
-                  <p className="text-xs text-blue-600 dark:text-blue-400">Industry-specific</p>
+                  <p className="text-sm font-medium text-indigo-900 dark:text-indigo-100">Questions</p>
+                  <p className="text-xs text-indigo-600 dark:text-indigo-400">Industry-specific</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800">
-                <div className="h-10 w-10 rounded-full bg-purple-600 dark:bg-purple-500 flex items-center justify-center text-white font-bold">⏱️</div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-violet-50 dark:bg-violet-950/30 border border-violet-200 dark:border-violet-800">
+                <div className="h-10 w-10 rounded-full bg-violet-600 dark:bg-violet-500 flex items-center justify-center text-white font-bold">⏱️</div>
                 <div>
-                  <p className="text-sm font-medium text-purple-900 dark:text-purple-100">Timed</p>
-                  <p className="text-xs text-purple-600 dark:text-purple-400">At your pace</p>
+                  <p className="text-sm font-medium text-violet-900 dark:text-violet-100">Timed</p>
+                  <p className="text-xs text-violet-600 dark:text-violet-400">At your pace</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 p-3 rounded-lg bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800">
-                <div className="h-10 w-10 rounded-full bg-green-600 dark:bg-green-500 flex items-center justify-center text-white font-bold">✓</div>
+              <div className="flex items-center gap-3 p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800">
+                <div className="h-10 w-10 rounded-full bg-emerald-600 dark:bg-emerald-500 flex items-center justify-center text-white font-bold">✓</div>
                 <div>
-                  <p className="text-sm font-medium text-green-900 dark:text-green-100">Instant</p>
-                  <p className="text-xs text-green-600 dark:text-green-400">Feedback</p>
+                  <p className="text-sm font-medium text-emerald-900 dark:text-emerald-100">Instant</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400">Feedback</p>
                 </div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function Quiz() {
         <CardFooter className="relative">
           <Button 
             onClick={generateQuizFn} 
-            className="w-full h-12 text-base font-semibold shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/40 transition-all"
+            className="w-full h-12 text-base font-semibold btn-primary-gradient"
           >
             Start Quiz
           </Button>
@@ -156,22 +156,22 @@ export default function Quiz() {
     <Card className="mx-2 relative overflow-hidden border-2 shadow-lg">
       <div className="absolute top-0 left-0 right-0 h-1.5 bg-muted">
         <div 
-          className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 transition-all duration-500 ease-out"
+          className="h-full bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 transition-all duration-500 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
       <CardHeader className="space-y-3 pt-6">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
+          <CardTitle className="text-2xl font-bold gradient-title">
             Question {currentQuestion + 1} of {quizData.length}
           </CardTitle>
-          <span className="px-3 py-1 rounded-full text-sm font-medium bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+          <span className="badge-primary">
             {Math.round(progress)}% Complete
           </span>
         </div>
       </CardHeader>
       <CardContent className="space-y-6">
-        <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border border-blue-200 dark:border-blue-800">
+        <div className="p-4 rounded-lg bg-gradient-to-br from-indigo-50 to-violet-50 dark:from-indigo-950/20 dark:to-violet-950/20 border border-indigo-200 dark:border-indigo-800">
           <p className="text-lg font-medium leading-relaxed">{question.question}</p>
         </div>
         <RadioGroup
@@ -184,9 +184,9 @@ export default function Quiz() {
             return (
               <div 
                 key={index} 
-                className={`group relative flex items-start space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer hover:border-purple-300 dark:hover:border-purple-700 ${
+                className={`group relative flex items-start space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer hover:border-violet-300 dark:hover:border-violet-700 ${
                   isSelected 
-                    ? 'border-purple-500 dark:border-purple-600 bg-purple-50 dark:bg-purple-950/30 shadow-md' 
+                    ? 'border-violet-500 dark:border-violet-600 bg-violet-50 dark:bg-violet-950/30 shadow-md' 
                     : 'border-border hover:bg-muted/50'
                 }`}
               >
@@ -205,10 +205,10 @@ export default function Quiz() {
         </RadioGroup>
 
         {showExplanation && (
-          <div className="relative overflow-hidden mt-6 p-5 rounded-lg border-2 border-green-200 dark:border-green-800 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 shadow-inner animate-in fade-in slide-in-from-top-2 duration-500">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(34,197,94,0.1),transparent_70%)]" />
-            <p className="font-semibold text-green-900 dark:text-green-100 mb-2 flex items-center gap-2">
-              <span className="h-6 w-6 rounded-full bg-green-600 dark:bg-green-500 flex items-center justify-center text-white text-sm">✓</span>
+          <div className="relative overflow-hidden mt-6 p-5 rounded-lg border-2 border-emerald-200 dark:border-emerald-800 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 shadow-inner animate-in fade-in slide-in-from-top-2 duration-500">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle,rgba(16,185,129,0.1),transparent_70%)]" />
+            <p className="font-semibold text-emerald-900 dark:text-emerald-100 mb-2 flex items-center gap-2">
+              <span className="h-6 w-6 rounded-full bg-emerald-600 dark:bg-emerald-500 flex items-center justify-center text-white text-sm">✓</span>
               Explanation:
             </p>
             <p className="text-muted-foreground leading-relaxed">{question.explanation}</p>
@@ -221,7 +221,7 @@ export default function Quiz() {
             onClick={() => setShowExplanation(true)}
             variant="outline"
             disabled={!answers[currentQuestion]}
-            className="border-2 hover:border-green-400 dark:hover:border-green-600 hover:bg-green-50 dark:hover:bg-green-950/30 transition-all"
+            className="border-2 hover:border-emerald-400 dark:hover:border-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 transition-all"
           >
             💡 Show Explanation
           </Button>
@@ -229,7 +229,7 @@ export default function Quiz() {
         <Button
           onClick={handleNext}
           disabled={!answers[currentQuestion] || savingResult}
-          className="ml-auto px-8 shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 transition-all"
+          className="ml-auto px-8 btn-primary-gradient"
         >
           {savingResult && (
             <BarLoader className="mt-4" width={"100%"} color="gray" />

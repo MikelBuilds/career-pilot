@@ -16,7 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { entrySchema } from "@/app/lib/schema";
-import { Sparkles, PlusCircle, X, Pencil, Save, Loader2 } from "lucide-react";
+import { Sparkles, PlusCircle, X, Pencil, Save, Loader2, Calendar, Building2, Briefcase } from "lucide-react";
 import { improveWithAI } from "@/actions/resume";
 import { toast } from "sonner";
 import useFetch from "@/hooks/use-fetch";
@@ -103,29 +103,37 @@ export function EntryForm({ type, entries, onChange }) {
 
   return (
     <div className="space-y-4">
-      <div className="space-y-4">
+      {/* Existing Entries */}
+      <div className="space-y-3">
         {entries.map((item, index) => (
-          <Card key={index}>
+          <Card key={index} className="border-2 hover:border-primary/30 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                {item.title} @ {item.organization}
-              </CardTitle>
+              <div className="flex items-center gap-3">
+                <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <Briefcase className="h-4 w-4 text-primary" />
+                </div>
+                <CardTitle className="text-base font-semibold">
+                  {item.title} <span className="text-muted-foreground font-normal">@</span> {item.organization}
+                </CardTitle>
+              </div>
               <Button
-                variant="outline"
+                variant="ghost"
                 size="icon"
                 type="button"
                 onClick={() => handleDelete(index)}
+                className="h-8 w-8 text-muted-foreground hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30"
               >
                 <X className="h-4 w-4" />
               </Button>
             </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground">
+            <CardContent className="pt-0">
+              <div className="flex items-center gap-1.5 text-sm text-muted-foreground mb-2">
+                <Calendar className="h-3.5 w-3.5" />
                 {item.current
                   ? `${item.startDate} - Present`
                   : `${item.startDate} - ${item.endDate}`}
-              </p>
-              <p className="mt-2 text-sm whitespace-pre-wrap">
+              </div>
+              <p className="text-sm whitespace-pre-wrap leading-relaxed">
                 {item.description}
               </p>
             </CardContent>
@@ -133,66 +141,68 @@ export function EntryForm({ type, entries, onChange }) {
         ))}
       </div>
 
+      {/* Add New Entry Form */}
       {isAdding && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Add {type}</CardTitle>
+        <Card className="border-2 border-dashed border-primary/40 bg-primary/5">
+          <CardHeader className="pb-4">
+            <CardTitle className="text-lg flex items-center gap-2">
+              <PlusCircle className="h-5 w-5 text-primary" />
+              Add {type}
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-group">
+                <label className="form-label">Title / Position</label>
                 <Input
-                  placeholder="Title/Position"
+                  placeholder="e.g. Software Engineer"
                   {...register("title")}
-                  error={errors.title}
+                  className="border-2"
                 />
                 {errors.title && (
-                  <p className="text-sm text-red-500">{errors.title.message}</p>
+                  <p className="text-sm text-rose-500 mt-1">{errors.title.message}</p>
                 )}
               </div>
-              <div className="space-y-2">
+              <div className="form-group">
+                <label className="form-label">Organization / Company</label>
                 <Input
-                  placeholder="Organization/Company"
+                  placeholder="e.g. Google Inc."
                   {...register("organization")}
-                  error={errors.organization}
+                  className="border-2"
                 />
                 {errors.organization && (
-                  <p className="text-sm text-red-500">
-                    {errors.organization.message}
-                  </p>
+                  <p className="text-sm text-rose-500 mt-1">{errors.organization.message}</p>
                 )}
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="form-group">
+                <label className="form-label">Start Date</label>
                 <Input
                   type="month"
                   {...register("startDate")}
-                  error={errors.startDate}
+                  className="border-2"
                 />
                 {errors.startDate && (
-                  <p className="text-sm text-red-500">
-                    {errors.startDate.message}
-                  </p>
+                  <p className="text-sm text-rose-500 mt-1">{errors.startDate.message}</p>
                 )}
               </div>
-              <div className="space-y-2">
+              <div className="form-group">
+                <label className="form-label">End Date</label>
                 <Input
                   type="month"
                   {...register("endDate")}
                   disabled={current}
-                  error={errors.endDate}
+                  className="border-2 disabled:opacity-50"
                 />
                 {errors.endDate && (
-                  <p className="text-sm text-red-500">
-                    {errors.endDate.message}
-                  </p>
+                  <p className="text-sm text-rose-500 mt-1">{errors.endDate.message}</p>
                 )}
               </div>
             </div>
 
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 border">
               <input
                 type="checkbox"
                 id="current"
@@ -203,44 +213,46 @@ export function EntryForm({ type, entries, onChange }) {
                     setValue("endDate", "");
                   }
                 }}
+                className="h-4 w-4 rounded border-2 border-primary text-primary focus:ring-primary"
               />
-              <label htmlFor="current">Current {type}</label>
+              <label htmlFor="current" className="text-sm font-medium cursor-pointer">
+                I currently work here / This is ongoing
+              </label>
             </div>
 
-            <div className="space-y-2">
+            <div className="form-group">
+              <label className="form-label">Description</label>
               <Textarea
-                placeholder={`Description of your ${type.toLowerCase()}`}
-                className="h-32"
+                placeholder={`Describe your ${type.toLowerCase()} responsibilities, achievements, and impact...`}
+                className="h-32 border-2 resize-none"
                 {...register("description")}
-                error={errors.description}
               />
               {errors.description && (
-                <p className="text-sm text-red-500">
-                  {errors.description.message}
-                </p>
+                <p className="text-sm text-rose-500 mt-1">{errors.description.message}</p>
               )}
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={handleImproveDescription}
+                disabled={isImproving || !watch("description")}
+                className="mt-2 gap-2 text-indigo-600 hover:text-indigo-700 hover:bg-indigo-50 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+              >
+                {isImproving ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Improving...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="h-4 w-4" />
+                    Improve with AI
+                  </>
+                )}
+              </Button>
             </div>
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleImproveDescription}
-              disabled={isImproving || !watch("description")}
-            >
-              {isImproving ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Improving...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Improve with AI
-                </>
-              )}
-            </Button>
           </CardContent>
-          <CardFooter className="flex justify-end space-x-2">
+          <CardFooter className="flex justify-end gap-3 pt-2">
             <Button
               type="button"
               variant="outline"
@@ -248,24 +260,26 @@ export function EntryForm({ type, entries, onChange }) {
                 reset();
                 setIsAdding(false);
               }}
+              className="border-2"
             >
               Cancel
             </Button>
-            <Button type="button" onClick={handleAdd}>
-              <PlusCircle className="h-4 w-4 mr-2" />
+            <Button type="button" onClick={handleAdd} className="gap-2">
+              <PlusCircle className="h-4 w-4" />
               Add Entry
             </Button>
           </CardFooter>
         </Card>
       )}
 
+      {/* Add Entry Button */}
       {!isAdding && (
         <Button
-          className="w-full"
+          className="w-full h-12 border-2 border-dashed hover:border-primary hover:bg-primary/5 gap-2"
           variant="outline"
           onClick={() => setIsAdding(true)}
         >
-          <PlusCircle className="h-4 w-4 mr-2" />
+          <PlusCircle className="h-5 w-5" />
           Add {type}
         </Button>
       )}

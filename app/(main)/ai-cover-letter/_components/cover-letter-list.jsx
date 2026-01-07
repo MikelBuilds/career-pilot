@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { format } from "date-fns";
-import { Edit2, Eye, Trash2 } from "lucide-react";
+import { Eye, Trash2, Building2, Calendar, FileText, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import {
   Card,
@@ -40,43 +40,73 @@ export default function CoverLetterList({ coverLetters }) {
 
   if (!coverLetters?.length) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle>No Cover Letters Yet</CardTitle>
-          <CardDescription>
-            Create your first cover letter to get started
-          </CardDescription>
-        </CardHeader>
-      </Card>
+      <div className="empty-state">
+        <div className="empty-state-icon">
+          <Sparkles className="h-8 w-8" />
+        </div>
+        <h3 className="empty-state-title">No Cover Letters Yet</h3>
+        <p className="empty-state-description">
+          Create your first AI-powered cover letter to get started with your job applications.
+        </p>
+        <Button 
+          onClick={() => router.push("/ai-cover-letter/new")}
+          className="mt-4"
+        >
+          Create Your First Letter
+        </Button>
+      </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {coverLetters.map((letter) => (
-        <Card key={letter.id} className="group relative ">
-          <CardHeader>
-            <div className="flex items-start justify-between">
-              <div>
-                <CardTitle className="text-xl gradient-title">
-                  {letter.jobTitle} at {letter.companyName}
+        <Card 
+          key={letter.id} 
+          className="group relative border-2 transition-all duration-300 hover:border-violet-300 dark:hover:border-violet-700 hover:shadow-lg hover:shadow-violet-500/10"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
+          <CardHeader className="relative pb-3">
+            <div className="flex items-start justify-between gap-2">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-lg font-semibold gradient-title truncate">
+                  {letter.jobTitle}
                 </CardTitle>
-                <CardDescription>
-                  Created {format(new Date(letter.createdAt), "PPP")}
+                <CardDescription className="flex items-center gap-1 mt-1">
+                  <Building2 className="h-3 w-3 flex-shrink-0" />
+                  <span className="truncate">{letter.companyName}</span>
                 </CardDescription>
               </div>
-              <div className="flex space-x-2">
+            </div>
+          </CardHeader>
+          <CardContent className="relative pt-0 space-y-4">
+            <div className="text-sm text-muted-foreground line-clamp-2">
+              {letter.jobDescription}
+            </div>
+            
+            <div className="flex items-center justify-between pt-2 border-t">
+              <span className="text-xs text-muted-foreground flex items-center gap-1">
+                <Calendar className="h-3 w-3" />
+                {format(new Date(letter.createdAt), "MMM d, yyyy")}
+              </span>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-1.5 h-8"
+                  onClick={() => router.push(`/ai-cover-letter/${letter.id}`)}
+                >
+                  <Eye className="h-3.5 w-3.5" />
+                  View
+                </Button>
                 <AlertDialog>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    onClick={() => router.push(`/ai-cover-letter/${letter.id}`)}
-                  >
-                    <Eye className="h-4 w-4" />
-                  </Button>
                   <AlertDialogTrigger asChild>
-                    <Button variant="outline" size="icon">
-                      <Trash2 className="h-4 w-4" />
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      className="h-8 w-8 p-0 text-muted-foreground hover:text-destructive hover:border-destructive"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
                     </Button>
                   </AlertDialogTrigger>
                   <AlertDialogContent>
@@ -84,8 +114,8 @@ export default function CoverLetterList({ coverLetters }) {
                       <AlertDialogTitle>Delete Cover Letter?</AlertDialogTitle>
                       <AlertDialogDescription>
                         This action cannot be undone. This will permanently
-                        delete your cover letter for {letter.jobTitle} at{" "}
-                        {letter.companyName}.
+                        delete your cover letter for <strong>{letter.jobTitle}</strong> at{" "}
+                        <strong>{letter.companyName}</strong>.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -100,11 +130,6 @@ export default function CoverLetterList({ coverLetters }) {
                   </AlertDialogContent>
                 </AlertDialog>
               </div>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="text-muted-foreground text-sm line-clamp-3">
-              {letter.jobDescription}
             </div>
           </CardContent>
         </Card>

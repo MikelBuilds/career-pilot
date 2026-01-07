@@ -78,49 +78,42 @@ const DashboardView = ({ insights }) => {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-700">
-      {/* Enhanced Header Section */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div className="space-y-2">
-          <div className="flex items-center gap-3">
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 opacity-20 blur" />
-              <div className="relative flex items-center gap-2 px-3 py-1.5 rounded-lg bg-background">
+      {/* Page Header */}
+      <div className="page-header">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-950/50 dark:to-indigo-950/50">
                 <Sparkles className="h-5 w-5 text-blue-600 dark:text-blue-400" />
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 bg-clip-text text-transparent">
-                  Industry Insights
-                </h1>
               </div>
+              <h1 className="page-title">Industry Insights</h1>
             </div>
+            <p className="page-description">
+              Real-time market data and trends to guide your career decisions
+            </p>
           </div>
-          <p className="text-muted-foreground text-sm">
-            Real-time market data and trends for your career growth
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/30 text-blue-900 dark:text-blue-100">
-            <Clock className="h-3 w-3 mr-1" />
-            Last updated: {lastUpdatedDate}
-          </Badge>
+          <div className="badge-primary">
+            <Clock className="h-3 w-3" />
+            Updated: {lastUpdatedDate}
+          </div>
         </div>
       </div>
 
       {/* Market Overview Cards with Enhanced Styling */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Market Outlook Card */}
-        <Card className="group relative overflow-hidden border-2 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Card className="group relative overflow-hidden border-2 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/20 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-semibold">
               Market Outlook
             </CardTitle>
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 opacity-20 blur" />
-              <OutlookIcon className={`relative h-5 w-5 ${outlookColor}`} />
+            <div className="h-10 w-10 rounded-lg bg-indigo-100 dark:bg-indigo-950/50 flex items-center justify-center">
+              <OutlookIcon className={`h-5 w-5 ${outlookColor}`} />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <div className="text-3xl font-bold gradient-title">
               {insights.marketOutlook}
             </div>
             <p className="text-xs text-muted-foreground mt-2 flex items-center gap-1">
@@ -131,19 +124,18 @@ const DashboardView = ({ insights }) => {
         </Card>
 
         {/* Industry Growth Card */}
-        <Card className="group relative overflow-hidden border-2 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Card className="group relative overflow-hidden border-2 hover:border-violet-300 dark:hover:border-violet-700 transition-all duration-300 hover:shadow-xl hover:shadow-violet-500/20 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-semibold">
               Industry Growth
             </CardTitle>
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 opacity-20 blur" />
-              <TrendingUp className="relative h-5 w-5 text-purple-600 dark:text-purple-400" />
+            <div className="h-10 w-10 rounded-lg bg-violet-100 dark:bg-violet-950/50 flex items-center justify-center">
+              <TrendingUp className="h-5 w-5 text-violet-600 dark:text-violet-400" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <div className="text-3xl font-bold gradient-title">
               {insights.growthRate.toFixed(1)}%
             </div>
             <Progress value={insights.growthRate} className="mt-3 h-2" />
@@ -151,17 +143,16 @@ const DashboardView = ({ insights }) => {
         </Card>
 
         {/* Demand Level Card */}
-        <Card className="group relative overflow-hidden border-2 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/20 hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Card className="group relative overflow-hidden border-2 hover:border-emerald-300 dark:hover:border-emerald-700 transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/20 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-semibold">Demand Level</CardTitle>
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 opacity-20 blur" />
-              <BriefcaseIcon className="relative h-5 w-5 text-green-600 dark:text-green-400" />
+            <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center">
+              <BriefcaseIcon className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+            <div className="text-3xl font-bold gradient-title">
               {insights.demandLevel}
             </div>
             <div className="relative mt-3 h-2 w-full rounded-full bg-muted overflow-hidden">
@@ -176,13 +167,12 @@ const DashboardView = ({ insights }) => {
         </Card>
 
         {/* Top Skills Card */}
-        <Card className="group relative overflow-hidden border-2 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+        <Card className="group relative overflow-hidden border-2 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-semibold">Top Skills</CardTitle>
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur" />
-              <Brain className="relative h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="h-10 w-10 rounded-lg bg-purple-100 dark:bg-purple-950/50 flex items-center justify-center">
+              <Brain className="h-5 w-5 text-purple-600 dark:text-purple-400" />
             </div>
           </CardHeader>
           <CardContent>
@@ -191,7 +181,7 @@ const DashboardView = ({ insights }) => {
                 <Badge 
                   key={skill} 
                   variant="secondary"
-                  className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 border border-blue-200 dark:border-blue-800 text-blue-900 dark:text-blue-100 font-medium"
+                  className="badge-primary !py-1"
                 >
                   {skill}
                 </Badge>
@@ -207,19 +197,20 @@ const DashboardView = ({ insights }) => {
       </div>
 
       {/* Salary Ranges Chart with Enhanced Styling */}
-      <Card className="relative overflow-hidden border-2 hover:border-purple-300 dark:hover:border-purple-700 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20">
-        <div className="absolute top-0 right-0 h-48 w-48 bg-gradient-to-bl from-purple-500/10 via-transparent to-transparent" />
+      <Card className="card-professional relative overflow-hidden">
+        <div className="absolute top-0 right-0 h-48 w-48 bg-gradient-to-bl from-violet-500/10 via-transparent to-transparent" />
         <CardHeader>
-          <div className="flex items-center gap-2 mb-2">
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 opacity-20 blur" />
-              <Target className="relative h-5 w-5 text-purple-600 dark:text-purple-400" />
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-10 w-10 rounded-lg bg-violet-100 dark:bg-violet-950/50 flex items-center justify-center">
+              <Target className="h-5 w-5 text-violet-600 dark:text-violet-400" />
             </div>
-            <CardTitle className="text-xl font-bold">Salary Ranges by Role</CardTitle>
+            <div>
+              <CardTitle className="text-xl font-bold">Salary Ranges by Role</CardTitle>
+              <CardDescription className="text-sm">
+                Displaying minimum, median, and maximum salaries (in thousands)
+              </CardDescription>
+            </div>
           </div>
-          <CardDescription className="text-base">
-            Displaying minimum, median, and maximum salaries (in thousands)
-          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[400px]">
@@ -229,18 +220,18 @@ const DashboardView = ({ insights }) => {
                 <XAxis 
                   dataKey="name" 
                   className="text-xs" 
-                  tick={{ fill: 'currentColor' }}
+                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
                 />
                 <YAxis 
                   className="text-xs"
-                  tick={{ fill: 'currentColor' }}
+                  tick={{ fill: 'hsl(var(--muted-foreground))' }}
                 />
                 <Tooltip
                   content={({ active, payload, label }) => {
                     if (active && payload && payload.length) {
                       return (
-                        <div className="bg-background/95 backdrop-blur-sm border-2 border-purple-200 dark:border-purple-800 rounded-lg p-3 shadow-xl">
-                          <p className="font-semibold text-sm mb-2 text-purple-900 dark:text-purple-100">{label}</p>
+                        <div className="bg-background/95 backdrop-blur-sm border-2 border-border rounded-lg p-3 shadow-xl">
+                          <p className="font-semibold text-sm mb-2">{label}</p>
                           {payload.map((item) => (
                             <p key={item.name} className="text-sm flex items-center gap-2">
                               <span 
@@ -258,19 +249,19 @@ const DashboardView = ({ insights }) => {
                 />
                 <Bar 
                   dataKey="min" 
-                  fill="rgb(147, 51, 234)" 
+                  fill="rgb(99, 102, 241)" 
                   name="Min Salary (K)" 
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar 
                   dataKey="median" 
-                  fill="rgb(168, 85, 247)" 
+                  fill="rgb(139, 92, 246)" 
                   name="Median Salary (K)" 
                   radius={[4, 4, 0, 0]}
                 />
                 <Bar 
                   dataKey="max" 
-                  fill="rgb(192, 132, 252)" 
+                  fill="rgb(168, 85, 247)" 
                   name="Max Salary (K)" 
                   radius={[4, 4, 0, 0]}
                 />
@@ -283,29 +274,27 @@ const DashboardView = ({ insights }) => {
       {/* Industry Trends with Enhanced Styling */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Key Industry Trends */}
-        <Card className="relative overflow-hidden border-2 hover:border-green-300 dark:hover:border-green-700 transition-all duration-300 hover:shadow-xl hover:shadow-green-500/20">
-          <div className="absolute top-0 right-0 h-32 w-32 bg-gradient-to-bl from-green-500/10 via-transparent to-transparent" />
+        <Card className="card-professional relative overflow-hidden">
+          <div className="absolute top-0 right-0 h-32 w-32 bg-gradient-to-bl from-emerald-500/10 via-transparent to-transparent" />
           <CardHeader>
-            <div className="flex items-center gap-2 mb-1">
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 opacity-20 blur" />
-                <TrendingUp className="relative h-5 w-5 text-green-600 dark:text-green-400" />
+            <div className="flex items-center gap-3 mb-1">
+              <div className="h-10 w-10 rounded-lg bg-emerald-100 dark:bg-emerald-950/50 flex items-center justify-center">
+                <TrendingUp className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
               </div>
-              <CardTitle className="text-lg font-bold">Key Industry Trends</CardTitle>
+              <div>
+                <CardTitle className="text-lg font-bold">Key Industry Trends</CardTitle>
+                <CardDescription>
+                  Current trends shaping the industry
+                </CardDescription>
+              </div>
             </div>
-            <CardDescription>
-              Current trends shaping the industry
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <ul className="space-y-3">
               {insights.keyTrends.map((trend, index) => (
                 <li key={index} className="flex items-start space-x-3 group">
-                  <div className="relative mt-2">
-                    <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 opacity-0 group-hover:opacity-40 blur transition-opacity" />
-                    <div className="relative h-2 w-2 rounded-full bg-gradient-to-r from-green-600 to-emerald-600" />
-                  </div>
-                  <span className="text-sm leading-relaxed group-hover:text-green-700 dark:group-hover:text-green-300 transition-colors">
+                  <div className="mt-2 h-2 w-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 flex-shrink-0" />
+                  <span className="text-sm leading-relaxed group-hover:text-foreground transition-colors">
                     {trend}
                   </span>
                 </li>
@@ -315,17 +304,18 @@ const DashboardView = ({ insights }) => {
         </Card>
 
         {/* Recommended Skills */}
-        <Card className="relative overflow-hidden border-2 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20">
-          <div className="absolute top-0 right-0 h-32 w-32 bg-gradient-to-bl from-blue-500/10 via-transparent to-transparent" />
+        <Card className="card-professional relative overflow-hidden">
+          <div className="absolute top-0 right-0 h-32 w-32 bg-gradient-to-bl from-indigo-500/10 via-transparent to-transparent" />
           <CardHeader>
-            <div className="flex items-center gap-2 mb-1">
-              <div className="relative">
-                <div className="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 opacity-20 blur" />
-                <Brain className="relative h-5 w-5 text-blue-600 dark:text-blue-400" />
+            <div className="flex items-center gap-3 mb-1">
+              <div className="h-10 w-10 rounded-lg bg-indigo-100 dark:bg-indigo-950/50 flex items-center justify-center">
+                <Brain className="h-5 w-5 text-indigo-600 dark:text-indigo-400" />
               </div>
-              <CardTitle className="text-lg font-bold">Recommended Skills</CardTitle>
+              <div>
+                <CardTitle className="text-lg font-bold">Recommended Skills</CardTitle>
+                <CardDescription>Skills to consider developing</CardDescription>
+              </div>
             </div>
-            <CardDescription>Skills to consider developing</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-wrap gap-2">
@@ -333,7 +323,7 @@ const DashboardView = ({ insights }) => {
                 <Badge 
                   key={skill} 
                   variant="outline"
-                  className="hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-950/30 dark:hover:to-purple-950/30 hover:border-blue-300 dark:hover:border-blue-700 transition-all duration-300 hover:scale-105 cursor-pointer font-medium"
+                  className="hover:bg-primary/10 hover:border-primary/50 transition-all duration-300 cursor-pointer font-medium"
                 >
                   {skill}
                 </Badge>
