@@ -23,11 +23,11 @@ import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/nextjs";
 import { entriesToMarkdown } from "@/app/lib/helper";
 import { resumeSchema } from "@/app/lib/schema";
-import html2pdf from "html2pdf.js";
+
 
 export default function ResumeBuilder({ initialContent }) {
   const [activeTab, setActiveTab] = useState("edit");
-  const [previewContent, setPreviewContent] = useState(initialContent);
+  const [previewContent, setPreviewContent] = useState(initialContent ?? "");
   const { user } = useUser();
   const [resumeMode, setResumeMode] = useState("preview");
 
@@ -112,21 +112,80 @@ export default function ResumeBuilder({ initialContent }) {
 
   const [isGenerating, setIsGenerating] = useState(false);
 
+
   const generatePDF = async () => {
     setIsGenerating(true);
     try {
       const element = document.getElementById("resume-pdf");
+      if (!element) {
+        toast.error("Resume preview not ready for PDF export.");
+        return;
+      }
+
+      // Ensure DOM has painted before capture
+      await new Promise((resolve) => requestAnimationFrame(resolve));
+
       const opt = {
         margin: [15, 15],
         filename: "resume.pdf",
         image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          onclone: (doc) => {
+            // html2canvas doesn't support modern CSS color functions (oklch, lab, etc.)
+            // Apply safe inline styles to the PDF container
+            const pdfRoot = doc.getElementById("resume-pdf");
+            if (pdfRoot) {
+              // Make element visible and positioned for capture
+              pdfRoot.style.position = "relative";
+              pdfRoot.style.left = "0";
+              pdfRoot.style.top = "0";
+              pdfRoot.style.width = "210mm";
+              pdfRoot.style.minHeight = "297mm";
+              pdfRoot.style.background = "#ffffff";
+              pdfRoot.style.color = "#000000";
+              pdfRoot.style.padding = "20mm";
+              
+              // Force all text elements to be black
+              pdfRoot.querySelectorAll("*").forEach((el) => {
+                const computed = window.getComputedStyle(el);
+                el.style.color = "#000000";
+                el.style.background = "transparent";
+                // Preserve font sizes
+                if (computed.fontSize) {
+                  el.style.fontSize = computed.fontSize;
+                }
+              });
+            }
+
+            // Remove all stylesheets to avoid color parsing issues
+            doc.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+              link.remove();
+            });
+            doc.querySelectorAll("style").forEach((style) => {
+              style.remove();
+            });
+          },
+        },
         jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
       };
 
+      // Import dynamically to avoid bundler/server issues
+      const html2pdfModule = await import("html2pdf.js");
+      const html2pdf = html2pdfModule?.default ?? html2pdfModule;
+      if (typeof html2pdf !== "function") {
+        throw new Error("html2pdf failed to load (unexpected module shape)");
+      }
+      
       await html2pdf().set(opt).from(element).save();
     } catch (error) {
       console.error("PDF generation error:", error);
+      toast.error(
+        error?.message ? `Failed to generate PDF: ${error.message}` : "Failed to generate PDF. Please try again."
+      );
     } finally {
       setIsGenerating(false);
     }
@@ -395,25 +454,41 @@ export default function ResumeBuilder({ initialContent }) {
           )}
           <div className="border rounded-lg">
             <MDEditor
-              value={previewContent}
+              value={previewContent ?? ""}
               onChange={setPreviewContent}
               height={800}
               preview={resumeMode}
             />
           </div>
-          <div className="hidden">
-            <div id="resume-pdf">
-              <MDEditor.Markdown
-                source={previewContent}
-                style={{
-                  background: "white",
-                  color: "black",
-                }}
-              />
-            </div>
-          </div>
         </TabsContent>
       </Tabs>
+
+      {/* Keep PDF source always mounted (Download works on any tab) */}
+      <div
+        id="resume-pdf"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "-9999px",
+          width: "210mm",
+          minHeight: "297mm",
+          background: "#ffffff",
+          color: "#000000",
+          padding: "20mm",
+          fontFamily: "Georgia, serif",
+          fontSize: "12pt",
+          lineHeight: "1.8",
+        }}
+      >
+        <div style={{ 
+          whiteSpace: "pre-wrap", 
+          wordBreak: "break-word",
+          color: "#000000",
+          fontSize: "12pt"
+        }}>
+          {previewContent ?? "No content to export"}
+        </div>
+      </div>
     </div>
   );
 }
