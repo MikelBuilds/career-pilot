@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Replace with your actual banner image -->
-![CareerPilot Banner](https://via.placeholder.com/1200x400?text=CareerPilot+-+AI+Career+Coach)
+![CareerPilot Banner](public/banner2.png)
 
 # CareerPilot
 
