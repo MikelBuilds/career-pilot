@@ -60,7 +60,7 @@ export default async function Header() {
               <DropdownMenuTrigger asChild>
                 <Button className="flex items-center gap-2 shadow-lg shadow-blue-500/20">
                   <Sparkles className="h-4 w-4" />
-                  <span className="hidden md:block">Career Tools</span>
+                  <span className="hidden md:block">More Tools</span>
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
