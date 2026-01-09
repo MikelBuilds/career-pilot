@@ -7,7 +7,7 @@
 
 ### Your AI-Powered Career Coach
 
-🚀 **[Live Demo](https://career-pilot-one.vercel.app/)**
+ **[Live Demo](https://career-pilot-one.vercel.app/)**
 
 [![Next.js](https://img.shields.io/badge/Next.js-15.5-black?logo=next.js)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
@@ -18,13 +18,13 @@
 
 ---
 
-## 📌 Introduction
+##  Introduction
 
 **CareerPilot** is an AI-powered career coaching platform that helps job seekers build professional resumes, generate tailored cover letters, and practice for interviews with intelligent mock assessments. Leveraging Google's Gemini AI, it provides personalized industry insights, skill recommendations, and real-time feedback to accelerate your career growth.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 | Category | Technology |
 |----------|------------|
@@ -41,7 +41,7 @@
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
 - **🎯 Smart Onboarding** — Industry-specific profile setup to personalize your experience
 - **📊 Dashboard** — Centralized view of your career progress and AI-generated industry insights
@@ -54,7 +54,7 @@
 
 ---
 
-## 📊 Data Model
+##  Data Model
 
 ```
 ┌─────────────────┐       ┌─────────────────┐
@@ -76,7 +76,7 @@
 
 ---
 
-## 🔐 Environment Variables
+##  Environment Variables
 
 Create a `.env` file in the root directory and add the following variables:
 
@@ -102,7 +102,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-## 🚀 Installation Guide
+##  Installation Guide
 
 ### Prerequisites
 
@@ -141,7 +141,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-## 🗄️ Database Setup
+##  Database Setup
 
 1. **Generate Prisma Client**
    ```bash
@@ -165,7 +165,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 career-pilot/
