@@ -187,6 +187,11 @@ career-pilot/
 
 ---
 
+##  Credits & Acknowledgments
+
+This project was inspired by and developed following the excellent tutorial from **[@RoadsideCoder](https://www.youtube.com/@RoadsideCoder)** on YouTube. Special thanks for the guidance and teaching that made this project possible.
+
+---
 
 <div align="center">
 
