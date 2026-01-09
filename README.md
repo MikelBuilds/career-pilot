@@ -18,13 +18,13 @@
 
 ---
 
-##  Introduction
+## Introduction
 
 **CareerPilot** is an AI-powered career coaching platform that helps job seekers build professional resumes, generate tailored cover letters, and practice for interviews with intelligent mock assessments. Leveraging Google's Gemini AI, it provides personalized industry insights, skill recommendations, and real-time feedback to accelerate your career growth.
 
 ---
 
-##  Tech Stack
+## Tech Stack
 
 | Category | Technology |
 |----------|------------|
@@ -41,20 +41,19 @@
 
 ---
 
-##  Key Features
+## Key Features
 
-- **🎯 Smart Onboarding** — Industry-specific profile setup to personalize your experience
-- **📊 Dashboard** — Centralized view of your career progress and AI-generated industry insights
-- **📝 AI Resume Builder** — Create ATS-optimized resumes with real-time AI feedback and scoring
-- **✉️ AI Cover Letter Generator** — Generate tailored cover letters for specific job applications
-- **🎤 Mock Interview Practice** — AI-powered interview simulations with performance analytics
-- **📈 Performance Tracking** — Visualize your quiz scores and improvement over time with charts
-- **🔐 Secure Authentication** — Clerk-powered sign-in/sign-up with protected routes
-- **🌙 Theme Support** — Light and dark mode with next-themes
+- **Smart Onboarding** — Industry-specific profile setup to personalize your experience
+- **Dashboard** — Centralized view of your career progress and AI-generated industry insights
+- **AI Resume Builder** — Create ATS-optimized resumes with real-time AI feedback and scoring
+- **AI Cover Letter Generator** — Generate tailored cover letters for specific job applications
+- **Mock Interview Practice** — AI-powered interview simulations with performance analytics
+- **Performance Tracking** — Visualize your quiz scores and improvement over time with charts
+- **Secure Authentication** — Clerk-powered sign-in/sign-up with protected routes
 
 ---
 
-##  Data Model
+## Data Model
 
 ```
 ┌─────────────────┐       ┌─────────────────┐
@@ -76,7 +75,7 @@
 
 ---
 
-##  Environment Variables
+## Environment Variables
 
 Create a `.env` file in the root directory and add the following variables:
 
@@ -102,7 +101,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-##  Installation Guide
+## Installation Guide
 
 ### Prerequisites
 
@@ -141,7 +140,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-##  Database Setup
+## Database Setup
 
 1. **Generate Prisma Client**
    ```bash
@@ -165,7 +164,7 @@ INNGEST_SIGNING_KEY=your_inngest_signing_key
 
 ---
 
-##  Project Structure
+## Project Structure
 
 ```
 career-pilot/
@@ -187,7 +186,7 @@ career-pilot/
 
 ---
 
-##  Credits & Acknowledgments
+## Credits & Acknowledgments
 
 This project was inspired by and developed following the excellent tutorial from **[@RoadsideCoder](https://www.youtube.com/@RoadsideCoder)** on YouTube. Special thanks for the guidance and teaching that made this project possible.
 
@@ -195,6 +194,6 @@ This project was inspired by and developed following the excellent tutorial from
 
 <div align="center">
 
-**Built with ❤️ using Next.js and AI**
+**Built with using Next.js and AI**
 
 </div>
